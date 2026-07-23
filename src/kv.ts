@@ -38,7 +38,7 @@ class QuarterCollection<T> extends Collection {
 }
 
 // Connect to the database (optional: specify a path)
-await connect("local");
+await connect();
 
 // Create a collection instance
 export const claimed = new QuarterCollection<QuarterBounty>("claimed");
@@ -53,16 +53,16 @@ const _clearAllKV = async () => {
     await offers.deleteMany({})
 }
 // await _clearAllKV()
-// await claimed.updateOrCreate({
-//     name: 'SC',
-//     status: false,
-//     user: 'admin'
-// })
-// await offers.updateOrCreate({
-//     name: 'Ohio',
-//     status: false,
-//     user: 'admin'
-// })
+await claimed.updateOrCreate({
+    name: 'SC',
+    status: false,
+    user: 'admin'
+})
+await offers.updateOrCreate({
+    name: 'Ohio',
+    status: false,
+    user: 'admin'
+})
 
 await claimed.logCount()
 await offers.logCount()

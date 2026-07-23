@@ -1,210 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>State Quarters Bounties</title>
-  <style>    
-    body{
-        padding: 5px 60px;
-        background:#F5F2EC;
-        color:#3C454D;
-        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-    input[type='checkbox']{
-        width: 20px;
-        height: 20px;
-    }
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>State Quarters Bounties</title>
+    <style>
+        body {
+            background: #F5F2EC;
+            color: #3C454D;
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
-    /* ---------- TABLE ---------- */
+        input[type='checkbox'] {
+            width: 20px;
+            height: 20px;
+        }
 
-    table{
-        width:100%;
-        border-collapse:separate;
-        border-spacing:0;
-        overflow:hidden;
-        background:#FFFFFF;
-        border-radius:12px;
-        box-shadow:0 8px 24px rgba(0,0,0,.08);
-        border:1px solid #D9D4CB;
-    }
+        /* ---------- TABLE ---------- */
 
-    th{
-        background:#2F3A44;
-        color:#F5F2EC;
-        padding:14px 16px;
-        font-size:.9rem;
-        font-weight:600;
-        text-transform:uppercase;
-        letter-spacing:.05em;
-        border:none;
-    }
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            background: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+            border: 1px solid #D9D4CB;
+        }
 
-    th:first-child{
-        border-top-left-radius:12px;
-    }
+        th {
+            background: #2F3A44;
+            color: #F5F2EC;
+            padding: 14px 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            border: none;
+        }
 
-    th:last-child{
-        border-top-right-radius:12px;
-    }
+        th:first-child {
+            border-top-left-radius: 12px;
+        }
 
-    td{
-        padding:1px 16px;
-        border-bottom:1px solid #ECE8E1;
-        color:#3C454D;
-        transition:background .2s ease;
-    }
+        th:last-child {
+            border-top-right-radius: 12px;
+        }
 
-    tr:last-child td{
-        border-bottom:none;
-    }
+        td {
+            padding: 1px 16px;
+            border-bottom: 1px solid #ECE8E1;
+            color: #3C454D;
+            transition: background .2s ease;
+        }
 
-    tbody tr:nth-child(even){
-        background:#FAF8F5;
-    }
+        tr:last-child td {
+            border-bottom: none;
+        }
 
-    tbody tr:hover{
-        background:#EEF3F2;
-    }
+        tbody tr:nth-child(even) {
+            background: #FAF8F5;
+        }
 
-    /* ---------- IMAGES ---------- */
+        tbody tr:hover {
+            background: #EEF3F2;
+        }
+
+        /* ---------- IMAGES ---------- */
 
 
-    img.thumbnail {
-        height: 55px;
-        display:block;
-        margin:auto;
-        transition: transform 0.2s ease-in-out;
-        transform-origin: center;
-    }
+        img.thumbnail {
+            height: 55px;
+            display: block;
+            margin: auto;
+            transition: transform 0.2s ease-in-out;
+            transform-origin: center;
+        }
 
-    tr:hover > td > img.thumbnail {
-        transition-delay: 500ms;
-        transform: scale(2.5);
-        z-index: 100;
-        position: relative;
-    }
+        tr:hover>td>img.thumbnail {
+            transition-delay: 500ms;
+            transform: scale(2.5);
+            z-index: 100;
+            position: relative;
+        }
 
-    tr:not(:hover) > td > img.thumbnail {
-        transition-delay: 0s;
-    }
+        tr:not(:hover)>td>img.thumbnail {
+            transition-delay: 0s;
+        }
 
-    /* ---------- PROGRESS BAR ---------- */
+        /* ---------- PROGRESS BAR ---------- */
 
-    .progress-container{
-        width:100%;
-        height:20px;
-        margin:20px 0;
-        background:#DDD8D0;
-        border-radius:999px;
-        overflow:hidden;
-    }
+        .progress-container {
+            width: 100%;
+            height: 20px;
+            margin: 20px 0;
+            background: #DDD8D0;
+            border-radius: 999px;
+            overflow: hidden;
+        }
 
-    .progress-bar{
-        height:100%;
-        background:linear-gradient(90deg,#6F8E91,#8FAFA9);
-        border-radius:999px;
-        transition:width .35s ease;
-    }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #6F8E91, #8FAFA9);
+            border-radius: 999px;
+            transition: width .35s ease;
+        }
 
-    /* ---------- YEAR TAGS ---------- */
-    .year-1999, .year-2010, .year-2020 {background:#A85555;color:white;border:none;}
-    .year-2000, .year-2011, .year-2021 {background:#C28E4F;color:white;border:none;}
-    .year-2001, .year-2012 {background:#5D768E;color:white;border:none;}
-    .year-2002, .year-2013 {background:#6B8F71;color:white;border:none;}
-    .year-2003, .year-2014 {background:#76648F;color:white;border:none;}
-    .year-2004, .year-2015 {background:#B58DA6;color:white;border:none;}
-    .year-2005, .year-2016 {background:#7DAF9B;color:white;border:none;}
-    .year-2006, .year-2017 {background:#C77E73;color:white;border:none;}
-    .year-2007, .year-2018 {background:#7698B4;color:white;border:none;}
-    .year-2008, .year-2019 {background:#5F9EA0;color:white;border:none;}
+        /* ---------- YEAR TAGS ---------- */
+        .year-1999, .year-2010, .year-2020 { background: #A85555; color: white; border: none; }
+        .year-2000, .year-2011, .year-2021 { background: #C28E4F; color: white; border: none; }
+        .year-2001, .year-2012 { background: #5D768E; color: white; border: none; }
+        .year-2002, .year-2013 { background: #6B8F71; color: white; border: none; }
+        .year-2003, .year-2014 { background: #76648F; color: white; border: none; }
+        .year-2004, .year-2015 { background: #B58DA6; color: white; border: none; }
+        .year-2005, .year-2016 { background: #7DAF9B; color: white; border: none; }
+        .year-2006, .year-2017 { background: #C77E73; color: white; border: none; }
+        .year-2007, .year-2018 { background: #7698B4; color: white; border: none; }
+        .year-2008, .year-2019 { background: #5F9EA0; color: white; border: none; }
 
-    /* Common styling for year cells */
+        /* Common styling for year cells */
+        [class^="year-"] {
+            padding: 6px 10px;
+            border-radius: 999px;
+            text-align: center;
+            font-weight: 600;
+            display: block;
+            min-width: 72px;
+        }
 
-    [class^="year-"]{
-        padding:6px 10px;
-        border-radius:999px;
-        text-align:center;
-        font-weight:600;
-        font-size:.8rem;
-        display:block;
-        min-width:72px;
-    }
-
-  </style>
+        /* Target Desktops and Up (Large Breakpoint) */
+        @media (max-width: 992px) {
+            tbody > tr {
+                height: 10vh;
+            }
+            tbody > tr > * {
+                scale: 1.2
+            }
+            tbody > input[type="checkbox"] {
+                height: 50px;
+            }
+            img.thumbnail {
+                height: 75px;
+            }
+            input[type="checkbox"] {
+                height: 40px;
+            }
+        }
+    </style>
 </head>
-<body>
-    
 
-<h2>{{TITLE}}</h2>
-<h4 id="status"></h4>
-<div class="progress-container"> 
-    <div id="progress-bar" class="progress-bar"></div>
-</div>
-<table>
-  <thead>
-    <tr>
-      <th style="width: 10%"></th>
-      <th style="width: 30%">Year</th>
-      <th>Image</th>
-      <th style="max-width: 450px">Name</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
+<body class="pt-2 pb-5 px-2 px-lg-5">
 
-<script>
+    <div class="container-lg my-4">
+        <h2 class="">{{TITLE}}</h2>
+        <h4 class="" id="status"></h4>
+        <div class="progress-container">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+        <table class="w-100">
+            <thead class="">
+                <tr>
+                    <th style="width: 10%"></th>
+                    <th style="width: 30%">Year</th>
+                    <th>Image</th>
+                    <th style="max-width: 450px">Name</th>
+                </tr>
+            </thead>
+            <tbody class="">
+            </tbody>
+        </table>
 
-  let data = {{DATA}};
+        <script>
 
-  let tbody = document.querySelector('tbody');
-  data.forEach((quarter) => {
-    let row = document.createElement('tr');
-    row.innerHTML = `
-        <td>
-            <div style="display: flex">
-                <input type="checkbox" style="margin: auto" data-key="${quarter.state}">
-            </div>
-        </td>
-        <td>
-            <div class="year-${quarter.year}">${quarter.year}</div>
-        </td>
-        <td>
-            <img class="thumbnail" src="${quarter.img}"/></div
-        </td>
-        <td>
-                <div>${quarter.state}</div>
-        </td>
-    `;
-    tbody.appendChild(row)
-  })
+            let data = {{DATA}};
 
-  const updateCount = () => {
-    let completed = [ ...document.querySelectorAll('input[type="checkbox"]')].filter((ele) => (ele.checked)).length;
-    document.getElementById("status").innerText = `${completed} out of ${data.length}`;
-    document.getElementById("progress-bar").style.width = `${(completed/data.length)*100}%`;
-  }
+            let tbody = document.querySelector('tbody');
+            data.forEach((quarter) => {
+                let row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div style="display: flex">
+                            <input type="checkbox" style="margin: auto" data-key="${quarter.state}">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="year-${quarter.year} mx-2 mx-lg-0"> ${quarter.year }</div>
+                    </td>
+                    <td>
+                        <img class="thumbnail" src="${quarter.img}"/></div
+                    </td>
+                    <td>
+                        <div>${quarter.state}</div>
+                    </td>
+                `;
+                tbody.appendChild(row)
+            })
 
-  // Load saved checkbox states on page load
+            const updateCount = () => {
+                let completed = [...document.querySelectorAll('input[type="checkbox"]')].filter((ele) => (ele.checked)).length;
+                document.getElementById("status").innerText = `${completed} out of ${data.length} bounties claimed`;
+                document.getElementById("progress-bar").style.width = `${(completed / data.length) * 100}%`;
+            }
 
-  document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-    const key = checkbox.dataset.key;
-    const savedState = localStorage.getItem(key);
+            // Load saved checkbox states on page load
 
-    if (savedState === 'true') {
-      checkbox.checked = true;
-    }
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                const key = checkbox.dataset.key;
+                const savedState = localStorage.getItem(key);
 
-    // TODO: update this to simple API call with creds to write to a Deno KV instance
-    // Save state whenever checkbox changes
-    checkbox.addEventListener('change', () => {
-      localStorage.setItem(key, checkbox.checked);
-      updateCount();
-    });
-  });
+                if (savedState === 'true') {
+                    checkbox.checked = true;
+                }
 
-  updateCount();
-</script>
+                // TODO: update this to simple API call with creds to write to a Deno KV instance
+                // Save state whenever checkbox changes
+                checkbox.addEventListener('change', () => {
+                    localStorage.setItem(key, checkbox.checked);
+                    updateCount();
+                });
+            });
 
+            updateCount();
+        </script>
+    </div>
 </body>
+
 </html>

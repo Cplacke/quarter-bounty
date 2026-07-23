@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quarter Bounties</title>
@@ -11,22 +13,20 @@
             font-family:"Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background:#F5F2EC;
             color:#3C454D;
-            display:flex;
+            /* display:flex; */
             justify-content:center;
             align-items:center;
-            height:100vh;
         }
 
         /* Main card */
-
-        .container{
+        .container-lg{
             background:#FFFFFF;
-            padding:60px;
+            /* padding:60px; */
             border-radius:18px;
             box-shadow:0 12px 30px rgba(0,0,0,.08);
             text-align:center;
-            min-width:420px;
-            max-width: 600px;
+            /* min-width:420px;
+            max-width: 600px; */
         }
 
         /* Heading */
@@ -41,37 +41,11 @@
 
         /* Buttons */
 
-        .menu-button{
-            display:block;
-            width:100%;
-            margin:18px auto;
-            padding:18px 24px;
-            font-size:1.1rem;
-            font-weight:600;
-            color:#F5F2EC;
-            background:#6F8E91;
-            border:none;
-            border-radius:12px;
-            cursor:pointer;
-            transition:all .25s ease;
-            box-shadow:0 4px 12px rgba(0,0,0,.12);
-        }
-
-        .menu-button:hover{
-            background:#5D7E84;
-            transform:translateY(-3px);
-            box-shadow:0 8px 20px rgba(0,0,0,.16);
-        }
-
-        .menu-button:active{
-            transform:translateY(0);
-        }
-
         .bounty-rates{
             text-align: left;
             align-items: center;
-            display: inline-flex;
-            flex-direction: column;
+            /* display: inline-flex; */
+            /* flex-direction: column; */
             margin-top: 0px;
         }
 
@@ -83,7 +57,6 @@
         }
         .subheader{
             color:#7C807C;
-            margin-top:-20px;
             margin-bottom:35px;
             font-size:.95rem;
         }
@@ -92,35 +65,35 @@
     </head>
     <body>
 
-        <div class="container">
+        <div class="container"> 
+            <div class="card w-100 w-lg-50 m-auto my-5">
+                <div class="card-body">
+                    <h2 class="my-2">Quarter Bounties</h2>
 
-            <h1>Quarter Bounties</h1>
+                    <div class="subheader">
+                        <div class="title"> Welcome, Hunter. </div>
+                        <div> The Guild is always searching for elusive quarters still hiding in circulation. Every unmarked coin you recover helps complete the record—and earns you a bounty. </div>
+                        <div class="title"> Current Guild Rates: </div>
+                        <ul class="bounty-rates">
+                            <li> <span style="color: #505350">$1.00 Bounty </span> — Quarters in Almost Uncirculated condition. </li>
+                            <li> <span style="color: #505350">50¢ Bounty </span> — Quarters in Fair condition. </li>
+                        </ul>
 
-            <div class="subheader">
-                <div class="title"> Welcome, Hunter. </div>
+                        <div> Inspect every coin that crosses your path. A forgotten quarter in a pocket, a handful of change from the market, or the bottom of an old coin jar could all conceal your next reward. </div>
+                        <div> Take up the hunt, claim your bounty, and may fortune favor your collection.  </div>
+                    </div>
 
-                <div> The Guild is always searching for elusive quarters still hiding in circulation. Every unmarked coin you recover helps complete the record—and earns you a bounty. </div>
+                    <button type="button" class="d-block my-2 btn btn-primary w-100 w-lg-50"
+                            onclick="location.href='/original-state-quarters.html'">
+                        Original State Quarters <br/> (1999 - 2008)
+                    </button>
 
-                <div class="title"> Current Guild Rates: </div>
-                <ul class="bounty-rates">
-                    <li> <span style="color: #505350">$1.00 Bounty </span> — Quarters in Almost Uncirculated condition. </li>
-                    <li> <span style="color: #505350">50¢ Bounty </span> — Quarters in Fair condition. </li>
-                </ul>
-
-                <div> Inspect every coin that crosses your path. A forgotten quarter in a pocket, a handful of change from the market, or the bottom of an old coin jar could all conceal your next reward. </div>
-                <div> Take up the hunt, claim your bounty, and may fortune favor your collection.  </div>
+                    <button type="button" class="d-block my-2 btn btn-primary w-100 w-lg-50"
+                            onclick="location.href='/america-the-beautiful.html'">
+                        America the Beautiful Quarters  <br/> (2010 - 2020)
+                    </button>
+                </div>
             </div>
-
-            <button class="menu-button"
-                    onclick="location.href='/original-state-quarters.html'">
-                Original State Quarters (1999 - 2008)
-            </button>
-
-            <button class="menu-button"
-                    onclick="location.href='/america-the-beautiful.html'">
-                America the Beautiful Quarters (2010 - 2020)
-            </button>
-
         </div>
 
     </body>

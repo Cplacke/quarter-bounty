@@ -31,6 +31,16 @@ const router = async (req: Request): Promise<Response> => {
             }
         )
     }
+
+    if (/admin/.test(req.url)) {
+        const adminHtml = await Deno.readTextFile('./pages/admin.html')
+        return new Response(
+            adminHtml,
+            {
+                headers: { 'Content-Type': 'text/html' }
+            }
+        )
+    }
     
     // else redirect to home page
     const homePageHtml = await Deno.readTextFile("./pages/home.html");

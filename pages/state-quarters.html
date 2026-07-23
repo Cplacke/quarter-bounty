@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>State Quarters Collection Status</title>
+  <style>    
+    body{
+        padding: 5px 60px;
+        background:#F5F2EC;
+        color:#3C454D;
+        font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* ---------- TABLE ---------- */
+
+    table{
+        width:100%;
+        border-collapse:separate;
+        border-spacing:0;
+        overflow:hidden;
+        background:#FFFFFF;
+        border-radius:12px;
+        box-shadow:0 8px 24px rgba(0,0,0,.08);
+        border:1px solid #D9D4CB;
+    }
+
+    th{
+        background:#2F3A44;
+        color:#F5F2EC;
+        padding:14px 16px;
+        font-size:.9rem;
+        font-weight:600;
+        text-transform:uppercase;
+        letter-spacing:.05em;
+        border:none;
+    }
+
+    th:first-child{
+        border-top-left-radius:12px;
+    }
+
+    th:last-child{
+        border-top-right-radius:12px;
+    }
+
+    td{
+        padding:5px 16px;
+        border-bottom:1px solid #ECE8E1;
+        color:#3C454D;
+        transition:background .2s ease;
+    }
+
+    tr:last-child td{
+        border-bottom:none;
+    }
+
+    tbody tr:nth-child(even){
+        background:#FAF8F5;
+    }
+
+    tbody tr:hover{
+        background:#EEF3F2;
+    }
+
+    /* ---------- IMAGES ---------- */
+
+    img.thumbnail{
+        height:48px;
+        display:block;
+        margin:auto;
+        border-radius:8px;
+        box-shadow:0 2px 8px rgba(0,0,0,.12);
+    }
+
+    /* ---------- PROGRESS BAR ---------- */
+
+    .progress-container{
+        width:100%;
+        height:20px;
+        margin:20px 0;
+        background:#DDD8D0;
+        border-radius:999px;
+        overflow:hidden;
+    }
+
+    .progress-bar{
+        height:100%;
+        background:linear-gradient(90deg,#6F8E91,#8FAFA9);
+        border-radius:999px;
+        transition:width .35s ease;
+    }
+
+    /* ---------- YEAR TAGS ---------- */
+
+    .year-1999{background:#A85555;color:white;border:none;}
+    .year-2000{background:#C28E4F;color:white;border:none;}
+    .year-2001{background:#5D768E;color:white;border:none;}
+    .year-2002{background:#6B8F71;color:white;border:none;}
+    .year-2003{background:#76648F;color:white;border:none;}
+    .year-2004{background:#B58DA6;color:white;border:none;}
+    .year-2005{background:#7DAF9B;color:white;border:none;}
+    .year-2006{background:#C77E73;color:white;border:none;}
+    .year-2007{background:#7698B4;color:white;border:none;}
+    .year-2008{background:#5F9EA0;color:white;border:none;}
+
+    /* Common styling for year cells */
+
+    [class^="year-"]{
+        padding:6px 10px;
+        border-radius:999px;
+        text-align:center;
+        font-weight:600;
+        font-size:.8rem;
+        display:block;
+        min-width:72px;
+    }
+
+  </style>
+</head>
+<body>
+    
+
+<h2>Original State Quarters (1999 - 2008)</h2>
+<h4 id="status"></h4>
+<div class="progress-container"> 
+    <div id="progress-bar" class="progress-bar"></div>
+</div>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Year</th>
+      <th>Item</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+<script>
+
+  let data = [
+    {
+        "year": "1999",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/1999_DE_Proof.png/250px-1999_DE_Proof.png",
+        "state": "Delaware"
+    },
+    {
+        "year": "1999",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/1999_PA_Proof.png/250px-1999_PA_Proof.png",
+        "state": "Pennsylvania"
+    },
+    {
+        "year": "1999",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/1999_NJ_Proof.png/250px-1999_NJ_Proof.png",
+        "state": "New Jersey"
+    },
+    {
+        "year": "1999",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/1999_GA_Proof.png/250px-1999_GA_Proof.png",
+        "state": "Georgia"
+    },
+    {
+        "year": "1999",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/1999_CT_Proof.png/250px-1999_CT_Proof.png",
+        "state": "Connecticut"
+    },
+    {
+        "year": "2000",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/2000_MA_Proof.png/250px-2000_MA_Proof.png",
+        "state": "Massachusetts"
+    },
+    {
+        "year": "2000",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/2000_MD_Proof.png/250px-2000_MD_Proof.png",
+        "state": "Maryland"
+    },
+    {
+        "year": "2000",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/2000_SC_Proof.png/250px-2000_SC_Proof.png",
+        "state": "South Carolina"
+    },
+    {
+        "year": "2000",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/2000_NH_Proof.png/250px-2000_NH_Proof.png",
+        "state": "New Hampshire"
+    },
+    {
+        "year": "2000",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/2000_VA_Proof.png/250px-2000_VA_Proof.png",
+        "state": "Virginia"
+    },
+    {
+        "year": "2001",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/2001_NY_Proof.png/250px-2001_NY_Proof.png",
+        "state": "New York"
+    },
+    {
+        "year": "2001",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/2001_NC_Proof.png/250px-2001_NC_Proof.png",
+        "state": "North Carolina"
+    },
+    {
+        "year": "2001",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/2001_RI_Proof.png/250px-2001_RI_Proof.png",
+        "state": "Rhode Island"
+    },
+    {
+        "year": "2001",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/2001_VT_Proof.png/250px-2001_VT_Proof.png",
+        "state": "Vermont"
+    },
+    {
+        "year": "2001",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/2001_KY_Proof.png/250px-2001_KY_Proof.png",
+        "state": "Kentucky"
+    },
+    {
+        "year": "2002",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/2002_TN_Proof.png/250px-2002_TN_Proof.png",
+        "state": "Tennessee"
+    },
+    {
+        "year": "2002",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/2002_OH_Proof.png/250px-2002_OH_Proof.png",
+        "state": "Ohio"
+    },
+    {
+        "year": "2002",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2002_LA_Proof.png/250px-2002_LA_Proof.png",
+        "state": "Louisiana"
+    },
+    {
+        "year": "2002",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/2002_IN_Proof.png/250px-2002_IN_Proof.png",
+        "state": "Indiana"
+    },
+    {
+        "year": "2002",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d8/2002_MS_Proof.png/250px-2002_MS_Proof.png",
+        "state": "Mississippi"
+    },
+    {
+        "year": "2003",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/2003_IL_Proof.png/250px-2003_IL_Proof.png",
+        "state": "Illinois"
+    },
+    {
+        "year": "2003",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/2003_AL_Proof.png/250px-2003_AL_Proof.png",
+        "state": "Alabama"
+    },
+    {
+        "year": "2003",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/2003_ME_Proof.png/250px-2003_ME_Proof.png",
+        "state": "Maine"
+    },
+    {
+        "year": "2003",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/2003_MO_Proof.png/250px-2003_MO_Proof.png",
+        "state": "Missouri"
+    },
+    {
+        "year": "2003",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/2003_AR_Proof.png/250px-2003_AR_Proof.png",
+        "state": "Arkansas"
+    },
+    {
+        "year": "2004",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/2004_MI_Proof.png/250px-2004_MI_Proof.png",
+        "state": "Michigan"
+    },
+    {
+        "year": "2004",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/2004_FL_Proof.png/250px-2004_FL_Proof.png",
+        "state": "Florida"
+    },
+    {
+        "year": "2004",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/2004_TX_Proof.png/250px-2004_TX_Proof.png",
+        "state": "Texas"
+    },
+    {
+        "year": "2004",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/2004_IA_Proof.png/250px-2004_IA_Proof.png",
+        "state": "Iowa"
+    },
+    {
+        "year": "2004",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/2004_WI_Proof.png/250px-2004_WI_Proof.png",
+        "state": "Wisconsin"
+    },
+    {
+        "year": "2005",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/2005_CA_Proof.png/250px-2005_CA_Proof.png",
+        "state": "California"
+    },
+    {
+        "year": "2005",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/2005_MN_Proof.png/250px-2005_MN_Proof.png",
+        "state": "Minnesota"
+    },
+    {
+        "year": "2005",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/2005_OR_Proof.png/250px-2005_OR_Proof.png",
+        "state": "Oregon"
+    },
+    {
+        "year": "2005",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/2005_KS_Proof.png/250px-2005_KS_Proof.png",
+        "state": "Kansas"
+    },
+    {
+        "year": "2005",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/2005_WV_Proof.png/250px-2005_WV_Proof.png",
+        "state": "West Virginia"
+    },
+    {
+        "year": "2006",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/2006_NV_Proof.png/250px-2006_NV_Proof.png",
+        "state": "Nevada"
+    },
+    {
+        "year": "2006",
+        "img": "https://upload.wikimedia.org/wikipedia/en/a/a8/2006_NE_Proof.jpg",
+        "state": "Nebraska"
+    },
+    {
+        "year": "2006",
+        "img": "https://upload.wikimedia.org/wikipedia/en/a/ae/2006_CO_Proof.jpg",
+        "state": "Colorado"
+    },
+    {
+        "year": "2006",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/2006_ND_Proof.png/250px-2006_ND_Proof.png",
+        "state": "North Dakota"
+    },
+    {
+        "year": "2006",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/2006-50-state-quarters-coin-south-dakota-proof-reverse.jpg/250px-2006-50-state-quarters-coin-south-dakota-proof-reverse.jpg",
+        "state": "South Dakota"
+    },
+    {
+        "year": "2007",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/2007_MT_Proof.png/250px-2007_MT_Proof.png",
+        "state": "Montana"
+    },
+    {
+        "year": "2007",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/2007_WA_Proof.png/250px-2007_WA_Proof.png",
+        "state": "Washington"
+    },
+    {
+        "year": "2007",
+        "img": "https://upload.wikimedia.org/wikipedia/en/e/e5/2007_ID_Proof_reverse.jpg",
+        "state": "Idaho"
+    },
+    {
+        "year": "2007",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/2007_WY_Proof.png/250px-2007_WY_Proof.png",
+        "state": "Wyoming"
+    },
+    {
+        "year": "2007",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/2007_UT_Proof.png/250px-2007_UT_Proof.png",
+        "state": "Utah"
+    },
+    {
+        "year": "2008",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/2008_OK_Proof.png/250px-2008_OK_Proof.png",
+        "state": "Oklahoma"
+    },
+    {
+        "year": "2008",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/2008_NM_Proof.png/250px-2008_NM_Proof.png",
+        "state": "New Mexico"
+    },
+    {
+        "year": "2008",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/2008_AZ_Proof.png/250px-2008_AZ_Proof.png",
+        "state": "Arizona"
+    },
+    {
+        "year": "2008",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/2008_AK_Proof.png/250px-2008_AK_Proof.png",
+        "state": "Alaska"
+    },
+    {
+        "year": "2008",
+        "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/2008_HI_Proof.png/250px-2008_HI_Proof.png",
+        "state": "Hawaii"
+    }
+];
+
+  let tbody = document.querySelector('tbody');
+  data.forEach((quarter) => {
+    let row = document.createElement('tr');
+    row.innerHTML = `
+      <td><div style="display: flex"><input type="checkbox" style="margin: auto" data-key="${quarter.state}"></div></td>
+      <td><div class="year-${quarter.year}">${quarter.year}</div></td>
+      <td>${quarter.state}</td>
+      <td><img class="thumbnail" src="${quarter.img}"/></div</td>
+    `;
+    tbody.appendChild(row)
+  })
+
+  const updateCount = () => {
+    let completed = [ ...document.querySelectorAll('input[type="checkbox"]')].filter((ele) => (ele.checked)).length;
+    document.getElementById("status").innerText = `${completed} out of ${data.length}`;
+    document.getElementById("progress-bar").style.width = `${(completed/data.length)*100}%`;
+  }
+
+  // Load saved checkbox states on page load
+
+  document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+    const key = checkbox.dataset.key;
+    const savedState = localStorage.getItem(key);
+
+    if (savedState === 'true') {
+      checkbox.checked = true;
+    }
+
+    // TODO: update this to simple API call with creds to write to a Deno KV instance
+    // Save state whenever checkbox changes
+    checkbox.addEventListener('change', () => {
+      localStorage.setItem(key, checkbox.checked);
+      updateCount();
+    });
+  });
+
+  updateCount();
+</script>
+
+</body>
+</html>

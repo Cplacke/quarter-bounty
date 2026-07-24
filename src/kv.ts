@@ -2,6 +2,7 @@ import { connect, Collection, disconnect, getKv } from "jsr:@easykv/easykv";
 
 interface QuarterBounty {
     name: string,
+    id?: string,
     status: boolean,
     user: string,
     date?: number
@@ -12,19 +13,21 @@ class QuarterCollection<T> extends Collection {
         super(collection)
     }
     async updateOrCreateByName(value: QuarterBounty) {
-        // attempt to update record matching name first
-        const updated = await this.findOneAndUpdate(
-            { name: value.name },
-            { ...value, date: Date.now()}
-        )
-        if (updated.ok) {
-            this.log(`'name:${value.name}' updated`);
-            return
-        }
+        // make updat if there is an ID present
+        // if (value.id) {
+        //     const updated = await this.updateById(
+        //         value.id,
+        //         { ...value, date: Date.now()}
+        //     )
+        //     this.log(`UPDATE - 'name:${value.name}' updated ${updated.ok} ${value.id}`);
+        //     return
+        // }
+        await this.deleteMany({ name: value.name })
 
-        // create if no record matching found
+
+        // create if no ID, create record
         const created = await this.save({ ...value, date: Date.now() })
-        this.log(`'name:${value.name}' record created ${created.id.toLocaleString()}`)
+        this.log(`CREATE - 'name:${value.name}' ${created.id.toLocaleString()}`)
     }
     async getAllValues() {
         return (await this.findMany({})).map((r) => (r.value))
@@ -40,8 +43,10 @@ class QuarterCollection<T> extends Collection {
     }
 }
 
-// Connect to the database (optional: specify a path)
+// local testing instance
 await connect();
+// remove deployment instance
+// await connect("https://api.deno.com/v2/databases/tarot/connect");
 
 // Create a collection instance
 export const claimed = new QuarterCollection<QuarterBounty>("claimed");

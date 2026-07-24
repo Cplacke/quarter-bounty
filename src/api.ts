@@ -21,7 +21,7 @@ export const handleBountyChange = async (req: Request) => {
     const records = await kv.findMany({ name: json.name })
 
     return new Response(
-        JSON.stringify(records.map((r) => { r.value })),
+        JSON.stringify(records.map((r) => (r.value ))),
         { headers: { 'Content-Type': 'application/json' } }
     )
 

@@ -11,7 +11,7 @@ class QuarterCollection<T> extends Collection {
     constructor(collection: string) {
         super(collection)
     }
-    async updateOrCreate(value: QuarterBounty) {
+    async updateOrCreateByName(value: QuarterBounty) {
         // attempt to update record matching name first
         const updated = await this.findOneAndUpdate(
             { name: value.name },
@@ -25,6 +25,9 @@ class QuarterCollection<T> extends Collection {
         // create if no record matching found
         const created = await this.save({ ...value, date: Date.now() })
         this.log(`'name:${value.name}' record created ${created.id.toLocaleString()}`)
+    }
+    async getAllValues() {
+        return (await this.findMany({})).map((r) => (r.value))
     }
 
     log(msg: string) {

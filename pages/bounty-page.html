@@ -130,21 +130,7 @@
 
         /* Target Desktops and Up (Large Breakpoint) */
         @media (max-width: 992px) {
-            /* tbody > tr {
-                height: 10vh;
-            }
-            tbody > tr > * {
-                scale: 1.2
-            }
-            tbody > input[type="checkbox"] {
-                height: 50px;
-            }
-            img.thumbnail {
-                height: 75px;
-            }
-            input[type="checkbox"] {
-                height: 40px;
-            } */
+           
         }
     </style>
 </head>
@@ -172,11 +158,12 @@
 
         <script>
 
-            let data = {{DATA}};
+            const data = {{DATA}};
+            const claimed = {{CLAIMED}};
 
-            let tbody = document.querySelector('tbody');
+            const tbody = document.querySelector('tbody');
             data.forEach((quarter) => {
-                let row = document.createElement('tr');
+                const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>
                         <div style="display: flex">
@@ -197,7 +184,7 @@
             })
 
             const updateCount = () => {
-                let completed = [...document.querySelectorAll('input[type="checkbox"]')].filter((ele) => (ele.checked)).length;
+                const completed = [...document.querySelectorAll('input[type="checkbox"]')].filter((ele) => (ele.checked)).length;
                 document.getElementById("status").innerText = `${completed} out of ${data.length} bounties claimed`;
                 document.getElementById("progress-bar").style.width = `${(completed / data.length) * 100}%`;
             }
@@ -205,17 +192,25 @@
             // Load saved checkbox states on page load
 
             document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-                const key = checkbox.dataset.key;
-                const savedState = localStorage.getItem(key);
-
-                if (savedState === 'true') {
+                const name = checkbox.dataset.key;
+                const isClaimed = claimed.find((q) => (q.name === name))?.status
+                
+                if (isClaimed) {
                     checkbox.checked = true;
                 }
 
-                // TODO: update this to simple API call with creds to write to a Deno KV instance
-                // Save state whenever checkbox changes
                 checkbox.addEventListener('change', () => {
-                    localStorage.setItem(key, checkbox.checked);
+                    // TODO: write this value when un-authed to offers kv 
+                    // localStorage.setItem(name, checkbox.checked);
+                    fetch('/api/claim', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            name,
+                            status: checkbox.checked,
+                            guildCode: localStorage.getItem('guild-code')
+                        })
+                    })
                     updateCount();
                 });
             });

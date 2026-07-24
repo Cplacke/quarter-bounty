@@ -65,4 +65,4 @@ const router = async (req: Request): Promise<Response> => {
     // });
 }
 
-Deno.serve({ port: 4200 }, router);
+Deno.serve({ port: 8000 }, router);

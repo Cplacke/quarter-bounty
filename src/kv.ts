@@ -13,18 +13,7 @@ class QuarterCollection<T> extends Collection {
         super(collection)
     }
     async updateOrCreateByName(value: QuarterBounty) {
-        // make updat if there is an ID present
-        // if (value.id) {
-        //     const updated = await this.updateById(
-        //         value.id,
-        //         { ...value, date: Date.now()}
-        //     )
-        //     this.log(`UPDATE - 'name:${value.name}' updated ${updated.ok} ${value.id}`);
-        //     return
-        // }
         await this.deleteMany({ name: value.name })
-
-
         // create if no ID, create record
         const created = await this.save({ ...value, date: Date.now() })
         this.log(`CREATE - 'name:${value.name}' ${created.id.toLocaleString()}`)

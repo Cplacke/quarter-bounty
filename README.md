@@ -1,3 +1,3 @@
 # quarter-bounty
 
-live at https://quarter-bounty.deno.dev
+live at https://quarter-bounty.placke.deno.net

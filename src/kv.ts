@@ -60,7 +60,7 @@ const _clearAllKV = async () => {
     await claimed.deleteMany({})
     await offers.deleteMany({})
 }
-// await _clearAllKV()
+await _clearAllKV()
 // await claimed.updateOrCreate({
 //     name: 'SC',
 //     status: false,

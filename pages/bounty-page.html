@@ -189,6 +189,7 @@
             }
 
             // Load saved checkbox states on page load
+            renderItems(data);
 
             document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                 const name = checkbox.dataset.key;
@@ -222,7 +223,6 @@
                 });
             });
 
-            renderItems(data);
             updateCount();
         </script>
     </div>

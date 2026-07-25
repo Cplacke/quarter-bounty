@@ -20,7 +20,7 @@
 
         /* ---------- TABLE ---------- */
 
-        table {
+        .bounty-table {
             border-collapse: separate;
             border-spacing: 0;
             overflow: hidden;
@@ -30,7 +30,7 @@
             border: 1px solid #D9D4CB;
         }
 
-        th {
+        .headers {
             background: #2F3A44;
             color: #F5F2EC;
             padding: 14px 16px;
@@ -39,30 +39,30 @@
             border: none;
         }
 
-        th:first-child {
+        .headers:first-child {
             border-top-left-radius: 12px;
         }
 
-        th:last-child {
+        .headers:last-child {
             border-top-right-radius: 12px;
         }
 
-        td {
+        #quarters > div {
             padding: 1px 16px;
             border-bottom: 1px solid #ECE8E1;
             color: #3C454D;
             transition: background .2s ease;
         }
 
-        tr:last-child td {
+        #quarters > div:last-child {
             border-bottom: none;
         }
 
-        tbody tr:nth-child(even) {
+        #quarters > div:nth-child(even) {
             background: #FAF8F5;
         }
 
-        tbody tr:hover {
+        #quarters > div:hover {
             background: #EEF3F2;
         }
 
@@ -77,16 +77,12 @@
             transform-origin: center;
         }
 
-        tr:hover>td>img.thumbnail {
+        .row:hover img.thumbnail {
             /* transition-delay: 500ms; */
             transform: scale(2.5);
             z-index: 100;
             position: relative;
         }
-
-
-        tr:active>td>img.thumbnail { transition-delay: 0s !important; }
-        tr:not(:hover)>td>img.thumbnail { transition-delay: 0s; }
 
         /* ---------- PROGRESS BAR ---------- */
 
@@ -143,49 +139,48 @@
         <div class="progress-container">
             <div id="progress-bar" class="progress-bar"></div>
         </div>
-        <table class="w-100">
-            <thead class="">
-                <tr>
-                    <th style="width: 10%"></th>
-                    <th style="width: 30%">Year</th>
-                    <th>Image</th>
-                    <th style="max-width: 450px">Name</th>
-                </tr>
-            </thead>
-            <tbody class="">
-            </tbody>
-        </table>
+        <div class="container-lg bounty-table">
+            <div class="row headers">
+                <div class="col-2 col-lg-1 text-center">Status</div>
+                <div class="col-3 col-lg-2 text-center">Year</div>
+                <div class="col-3 col-lg-3 text-center">Image</div>
+                <div class="col-4 col-lg-6 text-center">Name</div>
+            </div>
+            <div id="quarters"></div>
+        </div>
 
         <script>
-
             const data = {{DATA}};
             let claimed = {{CLAIMED}};
 
             console.log('inital load claimed', claimed)
 
-            const tbody = document.querySelector('tbody');
-            data.forEach((quarter) => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>
-                        <div style="display: flex">
-                            <input type="checkbox" style="margin: auto" 
+            const renderItems = (items) => {
+                const quarters = document.querySelector('#quarters');
+                quarters.replaceChildren(); // clear items so can re-render for filter
+
+                items.forEach((quarter) => {
+                    const row = document.createElement('div');
+                    row.classList = ['row']
+                    row.innerHTML = `
+                        <div class="col-2 col-lg-1 align-content-center">
+                            <input type="checkbox" class="d-flex mx-auto" 
                                 data-key="${quarter.state}"
                             >
                         </div>
-                    </td>
-                    <td>
-                        <div class="year-${quarter.year} mx-2 mx-lg-0"> ${quarter.year }</div>
-                    </td>
-                    <td>
-                        <img class="thumbnail" src="${quarter.img}"/></div
-                    </td>
-                    <td>
-                        <div>${quarter.state}</div>
-                    </td>
-                `;
-                tbody.appendChild(row)
-            })
+                        <div class="col-3 col-lg-2 align-content-center">
+                            <div class="year-${quarter.year} w-100 mx-2 mx-lg-0"> ${quarter.year }</div>
+                        </div>
+                        <div class="col-3 col-lg-3 align-content-center">
+                            <img class="thumbnail my-1" src="${quarter.img}"/></div
+                        </div>
+                        <div class="col-4 col-lg-6 align-content-center">
+                            <div>${quarter.state}</div>
+                        </div>
+                    `;
+                    quarters.append(row)
+                })
+            }
 
             const updateCount = () => {
                 const completed = [...document.querySelectorAll('input[type="checkbox"]')].filter((ele) => (ele.checked)).length;
@@ -204,20 +199,11 @@
                 }
 
                 checkbox.addEventListener('change', async () => {
-                    // TODO: write this value when un-authed to offers kv 
-
-                    // let id = undefined;
-                    // const claim = claimed.find((q) => (q.name === name));
-                    // if (claim && claim._id) {
-                    //     id = claim._id
-                    // }
-
                     fetch('/api/claim', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             name,
-                            // id,
                             status: checkbox.checked,
                             guildCode: localStorage.getItem('guild-code')
                         })
@@ -236,6 +222,7 @@
                 });
             });
 
+            renderItems(data);
             updateCount();
         </script>
     </div>

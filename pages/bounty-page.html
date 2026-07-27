@@ -77,7 +77,7 @@
             transform-origin: center;
         }
 
-        .row:hover .thumbnail {
+        .row:not(.bounty-claimed):hover .thumbnail {
             /* transition-delay: 500ms; */
             transform: scale(2.5);
             z-index: 100;
@@ -88,7 +88,8 @@
         .bounty-claimed {
             position: relative; 
             padding: 20px;
-            border: 1px solid #ccc;
+            border: none !important;
+            filter: grayscale();
         }
 
         /* 2. Create the gray overlay using a pseudo-element */
@@ -98,10 +99,10 @@
             top: 0;
             left: 0;
             width: 100%;
+            background-color: #2f3a446b;
             height: 100%;
-            background-color: rgba(128, 128, 128, 0.5); /* Gray with 50% transparency */
             z-index: 10; /* Sits on top of the child elements */
-            pointer-events: all; /* Blocks clicks to elements underneath */
+            pointer-events: all; 
         }
 
         /* ---------- PROGRESS BAR ---------- */
@@ -255,15 +256,17 @@
                         document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
                             checkbox.disabled = false
                         })
-                    } else {
+                    } 
+                    // else {
                         [ ...document.querySelectorAll('input[type="checkbox"]') ]
                             .filter((checkbox) => (checkbox.checked))
                             .forEach(checkbox => {
                                 const row = checkbox.parentElement.parentElement;
+                                console.info(checkbox, row);
                                 row.classList.add('bounty-claimed')
                                 console.log(row.classList)
                             })
-                    }
+                    // }
                 })
             })
         </script>

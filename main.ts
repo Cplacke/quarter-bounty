@@ -2,7 +2,7 @@
 import originalStateQuarters from './collections/state-quarters.ts';
 import americaTheBeautiful from './collections/america-the-beautiful.ts';
 import { claimed } from './src/kv.ts'
-import { handleBountyChange } from './src/api.ts';
+import { handleBountyChange, checkAdmin } from './src/api.ts';
 
 const router = async (req: Request): Promise<Response> => {
 
@@ -37,6 +37,13 @@ const router = async (req: Request): Promise<Response> => {
         )
     }
 
+    if (/api\/claim/.test(req.url)) {
+         return await handleBountyChange(req)
+    }
+    if (/api\/admin/.test(req.url)) {
+         return await checkAdmin(req)
+    }
+
     if (/admin/.test(req.url)) {
         const adminHtml = await Deno.readTextFile('./pages/admin.html')
         return new Response(
@@ -47,9 +54,7 @@ const router = async (req: Request): Promise<Response> => {
         )
     }
 
-    if (/api\/claim/.test(req.url)) {
-         return await handleBountyChange(req)
-    }
+    
     
     // else redirect to home page
     const homePageHtml = await Deno.readTextFile("./pages/home.html");

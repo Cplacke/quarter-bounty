@@ -69,7 +69,7 @@
         /* ---------- IMAGES ---------- */
 
 
-        img.thumbnail {
+        .thumbnail {
             height: 55px;
             display: block;
             margin: auto;
@@ -77,11 +77,31 @@
             transform-origin: center;
         }
 
-        .row:hover img.thumbnail {
+        .row:hover .thumbnail {
             /* transition-delay: 500ms; */
             transform: scale(2.5);
             z-index: 100;
             position: relative;
+        }
+
+        /* 1. Make the parent the positioning anchor */
+        .bounty-claimed {
+            position: relative; 
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        /* 2. Create the gray overlay using a pseudo-element */
+        .bounty-claimed::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(128, 128, 128, 0.5); /* Gray with 50% transparency */
+            z-index: 10; /* Sits on top of the child elements */
+            pointer-events: all; /* Blocks clicks to elements underneath */
         }
 
         /* ---------- PROGRESS BAR ---------- */
@@ -124,9 +144,10 @@
             min-width: 72px;
         }
 
-        /* Target Desktops and Up (Large Breakpoint) */
-        @media (max-width: 992px) {
-           
+        @media (max-width: 992px) { /* target smaller / mobile screens */
+            .thumbnail {
+                height: 100px;
+            }
         }
     </style>
 </head>
@@ -198,7 +219,7 @@
                 if (checked) {
                     checkbox.checked = true;
                 }
-
+                checkbox.disabled = true;
                 checkbox.addEventListener('change', async () => {
                     fetch('/api/claim', {
                         method: 'POST',
@@ -224,6 +245,27 @@
             });
 
             updateCount();
+
+            fetch('/api/admin', {
+                method: 'POST',
+                body: JSON.stringify({ guildCode: localStorage.getItem('guild-code') })
+            }).then((response) => {
+                response.json().then(({ admin }) => {
+                    if (admin) {
+                        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                            checkbox.disabled = false
+                        })
+                    } else {
+                        [ ...document.querySelectorAll('input[type="checkbox"]') ]
+                            .filter((checkbox) => (checkbox.checked))
+                            .forEach(checkbox => {
+                                const row = checkbox.parentElement.parentElement;
+                                row.classList.add('bounty-claimed')
+                                console.log(row.classList)
+                            })
+                    }
+                })
+            })
         </script>
     </div>
 </body>
